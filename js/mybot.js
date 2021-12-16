@@ -4,6 +4,10 @@ $(document).ready(function() {
         getAccount();
     });
 
+    $(".btn-withdrawallsub").click(function() {
+        WithDrawAll();
+    });
+
     async function getBot() {
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
         const account = accounts[0];
@@ -29,6 +33,21 @@ $(document).ready(function() {
               </ul>
             </div>`);
         }
+    }
+
+    async function WithDrawAll() {
+        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+        const account = accounts[0];
+        var web3js = new Web3(window.ethereum);
+        var NFTcontractAddress = "0x27dEa2c16E2F8b2a5Fc0eF8622dd77d86764CAD4";
+        NFTcontract = new web3js.eth.Contract(NFTcontractabi, NFTcontractAddress, {from: account});
+        console.log(NFTcontract)
+        const bot = await NFTcontract.methods.withdrawAllForUser().send();
+        console.log(bot);
+        // const create_sub = await NFTcontract.methods.subscribe(0xcC14dd8E6673fEE203366115D3f9240b079a4930, 0.5);
+        // console.log(create_sub);
+        // const sub = await NFTcontract.methods.getMySubscriptions().call();
+        // console.log(sub);
     }
 
     async function getAccount() {
