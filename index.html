@@ -23,6 +23,8 @@
 	<link rel="stylesheet" href="css/normalize.css">
 	<link rel="stylesheet" href="css/style.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="js/web3.min.js"></script>
+	<script src="js/NFT_contract_abi.js"></script>
 	<script src="js/script.js"></script>
 	</head>
 
@@ -37,6 +39,10 @@
 				<a class="menu_elem" href="#secure">IS IT SECURE ?</a>
 				<a class="menu_elem" href="#contact">CONTACT US</a>
 				<a class="menu_elem" href="#buy">BUY A BOT</a>
+			</div>
+			<div class="button_account">
+				<button class="enableEthereumButton">Connect wallet</button>
+				<h2 class="show_account">Account: <span class="showAccount"></span></h2>
 			</div>
 		</header>
 		<main id="main-content" class="page-sections">
@@ -140,19 +146,19 @@
 					</p>
 					<div class="contain_contact_form5">
 						<form class="contract-form" role="form">
-							<p class="input_buy">Parameter1</p>
-							<input type="text" class="form-control" id="parameter1" name="parameter1" placeholder="Parameter1">
-							<p class="input_buy">Parameter2</p>
-							<input type="text" class="form-control" id="parameter2" name="parameter2" placeholder="Parameter2">
-							<p class="input_buy">Parameter3</p>
-							<input type="text" class="form-control" id="parameter3" name="parameter3" placeholder="Parameter3">
-							<p class="input_buy">Parameter4</p>
-							<input type="text" class="form-control" id="parameter4" name="parameter4" placeholder="Parameter4">
+							<p class="input_buy">Contract address of the NFT to buy</p>
+							<input type="text" class="form-control" id="address" name="address" placeholder="Address">
+							<p class="input_buy">Maxmimum buy price in ETH (example : 0.2)</p>
+							<input type="text" class="form-control" id="amount" name="amount" placeholder="Amount in ETH">
+							<p class="input_buy">Amount allocated (example: 1)</p>
+							<input type="text" class="form-control" id="amount_alloc" name="amount_alloc" placeholder="Amount allocated for buying in ETH">
+							<!-- <p class="input_buy">Parameter4</p>
+							<input type="text" class="form-control" id="parameter4" name="parameter4" placeholder="Parameter4"> -->
 							<button class="btn-buy" type="submit" id="buy" data-loading-text="Buying...">Buy</button>
 						</form>
 					</div>
 					<div class="contain_button_gobuy">
-						<button class="btn-gobuy" type="submit" id="go-buy" data-loading-text="Go buy...">GO TO MY BOTS</button>
+						<button class="btn-gobuy" type="submit" id="go-buy" onclick="window.location.href='mybot.html'" data-loading-text="Go buy...">GO TO MY BOTS</button>
 					</div>
 				</div>
 			</section>

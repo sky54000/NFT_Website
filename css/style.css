@@ -71,6 +71,44 @@ input,textarea {
 .menu_header {
   display: flex;
   align-items: center;
+  width: 50%;
+}
+
+.button_account {
+  display: inline-flex;
+  align-items: center;
+  width: 40%;
+}
+
+.enableEthereumButton {
+  height: 50%;
+  display: inline-block;
+  color: rgba(255, 255, 255, 0.6);
+  border: 0;
+  line-height: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  border-style: solid;
+  border-width: 1px;
+  border-color: hsla(0, 0%, 100%, 0.15);
+  border-radius: 12px;
+  background-color: transparent;
+  -webkit-transition: all 200ms ease;
+  transition: all 200ms ease;
+  font-weight: 400;
+}
+
+.enableEthereumButton:hover {
+  border-color: #7b61ff;
+  background-color: rgba(123, 97, 255, 0.2);
+  color: #7b61ff;
+  outline: 0;
+}
+
+.show_account {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 16px;
+  margin-left: 15px;
 }
 
 .menu_elem {
@@ -496,6 +534,31 @@ input,textarea {
   transform: scale(1.1);
 }
 
+.mybots {
+  width: 100%;
+}
+
+.mybottitle {
+  color: #fff;
+  text-align: center;
+  padding-top: 5%;
+}
+
+.mybot {
+  color: #fff;
+  width: 100%;
+  padding-top: 1rem;
+}
+
+.list_bot {
+  width: 100%;
+  display: inline-flex;
+}
+
+.elem_bot {
+  padding-left: 20px;
+}
+
 .footer_main {
   width: 100%;
   display: inline-flex;
@@ -556,4 +619,5 @@ input,textarea {
 
 .foot_name {
   padding: 15px;
+  font-size: 15px
 }
