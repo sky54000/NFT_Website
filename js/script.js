@@ -1,4 +1,3 @@
-// import detectEthereumProvider from "@metamask/detect-provider";
 
 $(document).ready(function() {
 	
@@ -40,7 +39,7 @@ $(document).ready(function() {
       console.log(create_sub);
       const sub = await NFTcontract.methods.getMySubscriptions().call();
       console.log(sub);
-      alert("Subscription succeed : " + create_sub);
+      alert("Subscription succeed : THANKS");
     }
 
     async function getAccount() {
@@ -54,72 +53,5 @@ $(document).ready(function() {
       console.log(NFTcontract)
       const bot = await NFTcontract.methods.bot().call();
       console.log(bot);
-      // const create_sub = await NFTcontract.methods.subscribe(0xcC14dd8E6673fEE203366115D3f9240b079a4930, 0.5);
-      // console.log(create_sub);
-      // const sub = await NFTcontract.methods.getMySubscriptions().call();
-      // console.log(sub);
     }
   });
-
-
-// const provider = await detectEthereumProvider();
-
-// if (provider) {
-//   // From now on, this should always be true:
-//   // provider === window.ethereum
-//   startApp(provider); // initialize your app
-// } else {
-//   console.log("Please install MetaMask!");
-// }
-
-// if (typeof window.ethereum !== "undefined") {
-//   console.log("MetaMask is installed!");
-// }
-// else
-// {
-//   console.log("Please install metamask")
-// }
-
-
-// const ethereumButton = document.querySelector('.enableEthereumButton');
-// const showAccount = document.querySelector('.showAccount');
-// console.log(ethereumButton)
-// // ethereumButton.addEventListener('click', () => {
-// //   getAccount();
-// // });
-
-// var NFTcontract;
-
-// function startApp() {
-//   var web3js = new Web3(window.ethereum);
-//   // var NFTcontractAddress = "0x1c026439a701Da16A7D9de84582504c04D38cfa2";
-//   // NFTcontract = new web3js.eth.Contract(NFTcontractabi, NFTcontractAddress);
-//   // console.log(NFTcontract)
-//   // const bot = await window.contract.methods.bot().call();
-//   // console.log(bot);
-//   // var accountInterval = setInterval(function() {
-//   //   // Check if account has changed
-//   //   if (web3.eth.accounts[0] !== userAccount) {
-//   //     var userAccount = web3.eth.accounts[0];
-//   //     console.log(userAccount)
-//   //   // Call a function to update the UI with the new account
-//   //   }
-//   // }, 100);
-// }
-
-// window.addEventListener("load", function() {
-
-//   // Checking if Web3 has been injected by the browser (Mist/MetaMask)
-//   if (typeof window.ethereum !== "undefined") {
-//     console.log("MetaMask is installed!");
-//     // Use Mist/MetaMask"s provider
-//     var web3js = new Web3(window.ethereum);
-//       // Now you can start your app & access web3 freely:
-//     startApp(web3js)
-//   } else {
-//     // Handle the case where the user doesn"t have MetaMask installed
-//     // Probably show them a message prompting them to install MetaMask
-//     console.log("Please install metamask")
-//   }
-
-// })
