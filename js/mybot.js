@@ -51,7 +51,7 @@ $(document).ready(function() {
                     <button class="btn-withdrawnft" value="${sub[b].id}" data-contract="${sub[b][1].nftCollection}" onclick="WithDrawNFT(this)" type="submit" data-loading-text="Withdrawing...">WITHDRAW NFT</button>
                     <button class="btn-withdrawnft" value="${sub[b].id}" data-contract="${sub[b][1].nftCollection}" onclick="AddETH(this)" type="submit" data-loading-text="Withdrawing...">ADD ETH TO BALANCE</button>
                     <button class="btn-withdrawnft" value="${sub[b].id}" data-contract="${sub[b][1].nftCollection}" onclick="ExtendSub(this)" type="submit" data-loading-text="Withdrawing...">EXTEND SUBSCRIPTION</button>
-                    <button class="btn-withdrawnft" value="${sub[b].id}" onclick="WithDrawSub(this.value)" type="submit" data-loading-text="Withdrawing...">WITHDRAW SUBSCRIPTION & ETH</button>
+                    <button class="btn-withdrawnft" value="${sub[b].id}" onclick="WithDrawSub(this.value)" type="submit" data-loading-text="Withdrawing...">REVOKE AND WITHDRAW SUBSCRIPTION</button>
                 </div>
                 </div>
                 <div class="mybot_image_container">
