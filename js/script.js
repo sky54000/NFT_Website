@@ -30,16 +30,48 @@ $(document).ready(function() {
       $('.showAccount').html(account);
       $(".enableEthereumButton").toggle();
       var web3js = new Web3(window.ethereum);
-      var NFTcontractAddress = "0x27dEa2c16E2F8b2a5Fc0eF8622dd77d86764CAD4";
+      var NFTcontractAddress = "0x01761a3e953fe5DC8316Efa4C3259D220c19C2d0";
       console.log(amount_allocated)
       NFTcontract = new web3js.eth.Contract(NFTcontractabi, NFTcontractAddress, {from: account});
       console.log(NFTcontract);
       console.log(web3js.utils.toWei(amount_max));
-      const create_sub = await NFTcontract.methods.subscribe(contract_address, web3js.utils.toWei(amount_max)).send({from: account, value: web3js.utils.toWei(amount_allocated)});
-      console.log(create_sub);
-      const sub = await NFTcontract.methods.getMySubscriptions().call();
-      console.log(sub);
-      alert("Subscription succeed : THANKS");
+      const sub_collect = await NFTcontract.methods.getRangeForCollection(contract_address).call();
+      console.log(sub_collect)
+      const mysub = await NFTcontract.methods.getMySubscriptions().call();
+      console.log(mysub);
+      var cansub = true;
+      var maxi_price_sub = 0;
+      if (window.ethereum.networkVersion != 4) {
+        alert("Please switch your network to rinkeby");
+        cansub = false;
+      }
+      for (let b = 0; b < sub_collect.length; b++) {
+        if (amount_max < web3js.utils.fromWei(sub_collect[b][1].maxBuyPrice) > maxi_price_sub) {
+          maxi_price_sub = web3js.utils.fromWei(sub_collect[b][1].maxBuyPrice);
+          console.log("new max price")
+        }
+        // console.log(sub_collect[b]);
+        // console.log(sub_collect[b][1].nftCollection);
+        // console.log(web3js.utils.fromWei(sub_collect[b][1].maxBuyPrice));
+      }
+      for (let b = 0; b < mysub.length; b++) {
+        if (mysub[b][1].nftCollection == contract_address) {
+          alert("You already have a subscription with maximum amount buy of " + web3js.utils.fromWei(mysub[b][1].maxBuyPrice) + "ETH and balance of " + web3js.utils.fromWei(mysub[b][1].balance) + "ETH\nAdd ETH to your balance from MY BOTS page\nOr withdraw and create a new subscription to increase maximum buy price");
+          cansub = false;
+        }
+        // console.log(mysub[b]);
+        // console.log(mysub[b][1].nftCollection);
+        // console.log(web3js.utils.fromWei(mysub[b][1].maxBuyPrice));
+      }
+      if (amount_max < maxi_price_sub && cansub == true) {
+        alert("There's already a subscription for a max price of " + maxi_price_sub + "ETH\nPlease enter a higher buying price");
+        cansub = false;
+      }
+      if (cansub == true) {
+        const create_sub = await NFTcontract.methods.subscribe(contract_address, web3js.utils.toWei(amount_max)).send({from: account, value: web3js.utils.toWei(amount_allocated)});
+        console.log(create_sub);
+        alert("Subscription succeed : THANKS");
+      }
     }
 
     async function getAccount() {
@@ -47,10 +79,9 @@ $(document).ready(function() {
       const account = accounts[0];
       $('.showAccount').html(account);
       $(".enableEthereumButton").toggle();
-      var web3js = new Web3(window.ethereum);
-      var NFTcontractAddress = "0x27dEa2c16E2F8b2a5Fc0eF8622dd77d86764CAD4";
-      NFTcontract = new web3js.eth.Contract(NFTcontractabi, NFTcontractAddress);
-      console.log(NFTcontract)
+      if (window.ethereum.networkVersion != 4) {
+        alert("Please switch your network to rinkeby");
+      }
     }
 
     /*
@@ -94,7 +125,7 @@ $(document).ready(function() {
         return false;
       }
 
-      var $btn = $("#send").button('loading');
+      // var $btn = $("#send").button('loading');
 
       var data = $this.serialize();
 
@@ -108,18 +139,18 @@ $(document).ready(function() {
               if (html==1) {
                   $('#result-message').addClass('alert alert-success').html('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Success!</strong> Message Sent. We will contact with you soon.').delay(500).slideDown(500).delay(10000).slideUp('slow');
 
-                  $btn.button('reset');
+                  // $btn.button('reset');
 
               } else {
                   $('#result-message').addClass('alert alert-danger').html('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Error!</strong> Something went wrong ! Please try again').delay(500).slideDown(500).delay(10000).slideUp('slow');
-                  $btn.button('reset');
+                  // $btn.button('reset');
               }
           },
           error: function (a, b) {
             if (b == 'error') {
               $('#result-message').addClass('alert alert-danger').html('<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong>Error!</strong> Something went wrong ! Please try again').delay(500).slideDown(500).delay(10000).slideUp('slow');
             };
-            $btn.button('reset');
+            // $btn.button('reset');
           }
       });
 
@@ -131,8 +162,9 @@ $(document).ready(function() {
 if(window.ethereum) {
   window.ethereum.on('chainChanged', () => {
       window.location.reload();
-  })    
+  })
   window.ethereum.on('accountsChanged', () => {
       window.location.reload();
   })
+
 }

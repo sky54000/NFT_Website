@@ -18,11 +18,15 @@ $(document).ready(function() {
         $('.showAccount').html(account);
         $(".enableEthereumButton").toggle();
         var web3js = new Web3(window.ethereum);
-        var NFTcontractAddress = "0x27dEa2c16E2F8b2a5Fc0eF8622dd77d86764CAD4";
+        var NFTcontractAddress = "0x01761a3e953fe5DC8316Efa4C3259D220c19C2d0";
         NFTcontract = new web3js.eth.Contract(NFTcontractabi, NFTcontractAddress, {from: account});
         console.log(NFTcontract)
+        if (window.ethereum.networkVersion != 4) {
+            alert("Please switch your network to rinkeby");
+        }
         const sub = await NFTcontract.methods.getMySubscriptions().call();
         console.log(sub);
+        $(".noactive").toggle();
         // console.log(sub.length);
         for (let b = 0; b < sub.length; b++) {
             console.log(sub[b]);
@@ -65,7 +69,10 @@ $(document).ready(function() {
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
         const account = accounts[0];
         var web3js = new Web3(window.ethereum);
-        var NFTcontractAddress = "0x27dEa2c16E2F8b2a5Fc0eF8622dd77d86764CAD4";
+        var NFTcontractAddress = "0x01761a3e953fe5DC8316Efa4C3259D220c19C2d0";
+        if (window.ethereum.networkVersion != 4) {
+            alert("Please switch your network to rinkeby");
+        }
         NFTcontract = new web3js.eth.Contract(NFTcontractabi, NFTcontractAddress, {from: account});
         // console.log(NFTcontract)
         const bot = await NFTcontract.methods.withdrawAllForUser().send();
@@ -77,7 +84,10 @@ $(document).ready(function() {
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
         const account = accounts[0];
         var web3js = new Web3(window.ethereum);
-        var NFTcontractAddress = "0x27dEa2c16E2F8b2a5Fc0eF8622dd77d86764CAD4";
+        var NFTcontractAddress = "0x01761a3e953fe5DC8316Efa4C3259D220c19C2d0";
+        if (window.ethereum.networkVersion != 4) {
+            alert("Please switch your network to rinkeby");
+        }
         NFTcontract = new web3js.eth.Contract(NFTcontractabi, NFTcontractAddress, {from: account});
         // console.log(NFTcontract)
         const bot = await NFTcontract.methods.withdrawAllNFT().send();
@@ -91,7 +101,10 @@ $(document).ready(function() {
         $('.showAccount').html(account);
         $(".enableEthereumButton").toggle();
         var web3js = new Web3(window.ethereum);
-        var NFTcontractAddress = "0x27dEa2c16E2F8b2a5Fc0eF8622dd77d86764CAD4";
+        var NFTcontractAddress = "0x01761a3e953fe5DC8316Efa4C3259D220c19C2d0";
+        if (window.ethereum.networkVersion != 4) {
+            alert("Please switch your network to rinkeby");
+        }
         NFTcontract = new web3js.eth.Contract(NFTcontractabi, NFTcontractAddress);
         console.log(NFTcontract)
     }
@@ -110,24 +123,30 @@ async function WithDrawNFT(button_attr) {
     const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
     const account = accounts[0];
     var web3js = new Web3(window.ethereum);
-    var NFTcontractAddress = "0x27dEa2c16E2F8b2a5Fc0eF8622dd77d86764CAD4";
+    var NFTcontractAddress = "0x01761a3e953fe5DC8316Efa4C3259D220c19C2d0";
+    if (window.ethereum.networkVersion != 4) {
+        alert("Please switch your network to rinkeby");
+    }
     NFTcontract = new web3js.eth.Contract(NFTcontractabi, NFTcontractAddress, {from: account});
     // console.log(NFTcontract)
     const bot = await NFTcontract.methods.withdrawNFT(sub_id).send();
     console.log(bot);
-    location.reload();
+    window.location.reload();
 }
 
 async function WithDrawSub(sub_id) {
     const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
     const account = accounts[0];
     var web3js = new Web3(window.ethereum);
-    var NFTcontractAddress = "0x27dEa2c16E2F8b2a5Fc0eF8622dd77d86764CAD4";
+    var NFTcontractAddress = "0x01761a3e953fe5DC8316Efa4C3259D220c19C2d0";
+    if (window.ethereum.networkVersion != 4) {
+        alert("Please switch your network to rinkeby");
+    }
     NFTcontract = new web3js.eth.Contract(NFTcontractabi, NFTcontractAddress, {from: account});
     // console.log(NFTcontract)
     const bot = await NFTcontract.methods.withdrawSubscription(sub_id).send();
     console.log(bot);
-    location.reload();
+    window.location.reload();
 }
 
 async function ExtendSub(button_attr) {
@@ -146,11 +165,14 @@ async function ExtendSub(button_attr) {
     const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
     const account = accounts[0];
     var web3js = new Web3(window.ethereum);
-    var NFTcontractAddress = "0x27dEa2c16E2F8b2a5Fc0eF8622dd77d86764CAD4";
+    var NFTcontractAddress = "0x01761a3e953fe5DC8316Efa4C3259D220c19C2d0";
+    if (window.ethereum.networkVersion != 4) {
+        alert("Please switch your network to rinkeby");
+    }
     NFTcontract = new web3js.eth.Contract(NFTcontractabi, NFTcontractAddress, {from: account});
     const bot = await NFTcontract.methods.extendSubscription(sub_id).send({from: account, value: web3js.utils.toWei(amount)});
     console.log(bot);
-    location.reload();
+    window.location.reload();
 }
 
 async function AddETH(button_attr) {
@@ -169,12 +191,15 @@ async function AddETH(button_attr) {
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
         const account = accounts[0];
         var web3js = new Web3(window.ethereum);
-        var NFTcontractAddress = "0x27dEa2c16E2F8b2a5Fc0eF8622dd77d86764CAD4";
+        var NFTcontractAddress = "0x01761a3e953fe5DC8316Efa4C3259D220c19C2d0";
+        if (window.ethereum.networkVersion != 4) {
+            alert("Please switch your network to rinkeby");
+        }
         NFTcontract = new web3js.eth.Contract(NFTcontractabi, NFTcontractAddress, {from: account});
         // console.log(NFTcontract)
         const bot = await NFTcontract.methods.addETHToSubscription(sub_id).send({from: account, value: web3js.utils.toWei(amount)});
         console.log(bot);
-        location.reload();
+        window.location.reload();
     }
 }
 

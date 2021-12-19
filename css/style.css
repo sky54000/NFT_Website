@@ -74,6 +74,10 @@ input,textarea {
   width: 10%;
 }
 
+.logo_img_head {
+  height: 40px;
+}
+
 .menu_header {
   display: flex;
   align-items: center;
@@ -356,13 +360,14 @@ input,textarea {
 
 .contain_contact_form4 {
   width: 40%;
-  padding-right: 5%;
-	padding-left: 5%;
   text-align: center;
 }
 
 .contact-form {
   display: inline-grid;
+  width: 100%;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 
 .form-control {
@@ -421,6 +426,12 @@ input,textarea {
   -webkit-transform: scale(1.1);
   -ms-transform: scale(1.1);
   transform: scale(1.1);
+}
+
+.alert-success {
+  display: block;
+  color: #fff;
+  padding-top: 20px;
 }
 
 .site_elem_5 {
@@ -703,6 +714,16 @@ input,textarea {
   font-weight: 600;
   padding-left: 20px;
   padding-bottom: 10px;
+}
+
+.noactive {
+  color: #fff;
+  font-weight: 600;
+  font-size: 18px;
+  text-align: left;
+  padding-top: 5%;
+  padding-left: 5%;
+  padding-bottom: 5%;
 }
 
 .mybot_amount {
