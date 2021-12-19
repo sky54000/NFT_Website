@@ -18,7 +18,7 @@ $(document).ready(function() {
         $('.showAccount').html(account);
         $(".enableEthereumButton").toggle();
         var web3js = new Web3(window.ethereum);
-        var NFTcontractAddress = "0x01761a3e953fe5DC8316Efa4C3259D220c19C2d0";
+        var NFTcontractAddress = "0xa710E47962A6fD62B181771030cE507703F0A951";
         NFTcontract = new web3js.eth.Contract(NFTcontractabi, NFTcontractAddress, {from: account});
         console.log(NFTcontract)
         if (window.ethereum.networkVersion != 4) {
@@ -69,7 +69,7 @@ $(document).ready(function() {
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
         const account = accounts[0];
         var web3js = new Web3(window.ethereum);
-        var NFTcontractAddress = "0x01761a3e953fe5DC8316Efa4C3259D220c19C2d0";
+        var NFTcontractAddress = "0xa710E47962A6fD62B181771030cE507703F0A951";
         if (window.ethereum.networkVersion != 4) {
             alert("Please switch your network to rinkeby");
         }
@@ -84,7 +84,7 @@ $(document).ready(function() {
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
         const account = accounts[0];
         var web3js = new Web3(window.ethereum);
-        var NFTcontractAddress = "0x01761a3e953fe5DC8316Efa4C3259D220c19C2d0";
+        var NFTcontractAddress = "0xa710E47962A6fD62B181771030cE507703F0A951";
         if (window.ethereum.networkVersion != 4) {
             alert("Please switch your network to rinkeby");
         }
@@ -101,7 +101,7 @@ $(document).ready(function() {
         $('.showAccount').html(account);
         $(".enableEthereumButton").toggle();
         var web3js = new Web3(window.ethereum);
-        var NFTcontractAddress = "0x01761a3e953fe5DC8316Efa4C3259D220c19C2d0";
+        var NFTcontractAddress = "0xa710E47962A6fD62B181771030cE507703F0A951";
         if (window.ethereum.networkVersion != 4) {
             alert("Please switch your network to rinkeby");
         }
@@ -123,7 +123,7 @@ async function WithDrawNFT(button_attr) {
     const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
     const account = accounts[0];
     var web3js = new Web3(window.ethereum);
-    var NFTcontractAddress = "0x01761a3e953fe5DC8316Efa4C3259D220c19C2d0";
+    var NFTcontractAddress = "0xa710E47962A6fD62B181771030cE507703F0A951";
     if (window.ethereum.networkVersion != 4) {
         alert("Please switch your network to rinkeby");
     }
@@ -138,7 +138,7 @@ async function WithDrawSub(sub_id) {
     const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
     const account = accounts[0];
     var web3js = new Web3(window.ethereum);
-    var NFTcontractAddress = "0x01761a3e953fe5DC8316Efa4C3259D220c19C2d0";
+    var NFTcontractAddress = "0xa710E47962A6fD62B181771030cE507703F0A951";
     if (window.ethereum.networkVersion != 4) {
         alert("Please switch your network to rinkeby");
     }
@@ -165,7 +165,7 @@ async function ExtendSub(button_attr) {
     const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
     const account = accounts[0];
     var web3js = new Web3(window.ethereum);
-    var NFTcontractAddress = "0x01761a3e953fe5DC8316Efa4C3259D220c19C2d0";
+    var NFTcontractAddress = "0xa710E47962A6fD62B181771030cE507703F0A951";
     if (window.ethereum.networkVersion != 4) {
         alert("Please switch your network to rinkeby");
     }
@@ -191,7 +191,7 @@ async function AddETH(button_attr) {
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
         const account = accounts[0];
         var web3js = new Web3(window.ethereum);
-        var NFTcontractAddress = "0x01761a3e953fe5DC8316Efa4C3259D220c19C2d0";
+        var NFTcontractAddress = "0xa710E47962A6fD62B181771030cE507703F0A951";
         if (window.ethereum.networkVersion != 4) {
             alert("Please switch your network to rinkeby");
         }

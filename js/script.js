@@ -1,4 +1,4 @@
-
+// Web3 = require('web3')
 $(document).ready(function() {
 	
     var headerHeight = $("header").outerHeight(); // Target your header navigation here
@@ -30,14 +30,19 @@ $(document).ready(function() {
       $('.showAccount').html(account);
       $(".enableEthereumButton").toggle();
       var web3js = new Web3(window.ethereum);
-      var NFTcontractAddress = "0x01761a3e953fe5DC8316Efa4C3259D220c19C2d0";
+      var NFTcontractAddress = "0xa710E47962A6fD62B181771030cE507703F0A951";
       console.log(amount_allocated)
       NFTcontract = new web3js.eth.Contract(NFTcontractabi, NFTcontractAddress, {from: account});
       console.log(NFTcontract);
       console.log(web3js.utils.toWei(amount_max));
       const sub_collect = await NFTcontract.methods.getRangeForCollection(contract_address).call();
       console.log(sub_collect)
-      const mysub = await NFTcontract.methods.getMySubscriptions().call();
+      var mysub = [];
+      try {
+        mysub = await NFTcontract.methods.getMySubscriptions().call();
+      } catch(err) {
+        console.log(err);
+      }
       console.log(mysub);
       var cansub = true;
       var maxi_price_sub = 0;
@@ -50,18 +55,12 @@ $(document).ready(function() {
           maxi_price_sub = web3js.utils.fromWei(sub_collect[b][1].maxBuyPrice);
           console.log("new max price")
         }
-        // console.log(sub_collect[b]);
-        // console.log(sub_collect[b][1].nftCollection);
-        // console.log(web3js.utils.fromWei(sub_collect[b][1].maxBuyPrice));
       }
       for (let b = 0; b < mysub.length; b++) {
         if (mysub[b][1].nftCollection == contract_address) {
           alert("You already have a subscription with maximum amount buy of " + web3js.utils.fromWei(mysub[b][1].maxBuyPrice) + "ETH and balance of " + web3js.utils.fromWei(mysub[b][1].balance) + "ETH\nAdd ETH to your balance from MY BOTS page\nOr withdraw and create a new subscription to increase maximum buy price");
           cansub = false;
         }
-        // console.log(mysub[b]);
-        // console.log(mysub[b][1].nftCollection);
-        // console.log(web3js.utils.fromWei(mysub[b][1].maxBuyPrice));
       }
       if (amount_max < maxi_price_sub && cansub == true) {
         alert("There's already a subscription for a max price of " + maxi_price_sub + "ETH\nPlease enter a higher buying price");
