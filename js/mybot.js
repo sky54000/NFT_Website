@@ -1,5 +1,9 @@
 $(document).ready(function() {
 
+    let contract_address = "0xce393C17835d11a066BC863306111e328Dfd50a5";
+    var web3 = new Web3(window.ethereum);
+    let contract = new web3.eth.Contract(NFTcontractabi, contract_address);
+
     $(".enableEthereumButton").click(function() {
         getAccount();
     });
@@ -8,54 +12,69 @@ $(document).ready(function() {
         WithDrawAll();
     });
 
-    $(".btn-withdrawallnft").click(function() {
-        WithDrawNFTall();
+    $('#add-eth-button').click(function(){
+        $('#eth-to-balance').css({
+            'visibility': 'visible'
+        });
+        $('#send-eth-to-balance').css({
+            'visibility': 'visible'
+        });
+        $('#add-eth-button').css({
+            'visibility': 'hidden'
+        });
+    });
+
+    $("#send-eth-to-balance").click(function() {
+        sendEthToBalance();
+    });
+
+    $( ".contract-form" ).submit(function( event ) {
+        // console.log( $( this ).serializeArray() );
+        var formcomp = $( this ).serializeArray();
+        put_order(formcomp[0].value, formcomp[1].value, formcomp[2].value)
+        event.preventDefault();
     });
 
     async function getBot() {
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
         const account = accounts[0];
-        $('.showAccount').html(account);
+        const balance = await contract.methods.getMyBalance().call({from: account});
+        $('.showBalance').html(web3.utils.fromWei(balance));
+        $('.showAccount').html(account.slice(0, 6)+'...' + account.slice(-4));
         $(".enableEthereumButton").toggle();
-        var web3js = new Web3(window.ethereum);
-        var NFTcontractAddress = "0xa710E47962A6fD62B181771030cE507703F0A951";
-        NFTcontract = new web3js.eth.Contract(NFTcontractabi, NFTcontractAddress, {from: account});
-        console.log(NFTcontract)
         if (window.ethereum.networkVersion != 4) {
             alert("Please switch your network to rinkeby");
         }
-        const sub = await NFTcontract.methods.getMySubscriptions().call();
+        const sub = await contract.methods.getMySubscriptions().call({from: account});
+        $(".btn-withdrawallsub").css({
+            'visibility': 'visible'
+        });
         console.log(sub);
         $(".noactive").toggle();
         // console.log(sub.length);
         for (let b = 0; b < sub.length; b++) {
             console.log(sub[b]);
             console.log(sub[b][1].nftCollection);
-            var date_exp = new Date(sub[b][1].expirationDate*1000);
-            console.log(date_exp);
-            var end_date = date_exp.getDate()+
-            "/"+(date_exp.getMonth()+1)+
-            "/"+date_exp.getFullYear()+
-            " "+date_exp.getHours()+
-            ":"+date_exp.getMinutes()+
-            ":"+date_exp.getSeconds();
-            console.log(end_date);
+            let maxBuyPrices = []
+            for (let i = 0; i < sub.length; ++i) {
+                maxBuyPrice = sub[i][1].maxBuyPrice;
+                if (sub[i][1].balance > sub[i][1].maxBuyPrice)
+                    maxBuyPrice = sub[i][1].balance;
+                maxBuyPrices.push(web3.utils.fromWei(maxBuyPrice));
+            }
+            maxBuyPrices.sort();
             $(".mybots").append(`<div class="container_mybots">
                 <div class="mybot">
-                <h1 class="mybot_title">Subscribe ${sub[b].id}</h1>
+                <h1 class="mybot_title">Order ${sub[b].id}</h1>
                 <ul class="list_bot">
                     <li class="elem_bot">Collection: <p class="cont_elem_bot">${sub[b][1].nftCollection}</p></li>
-                    <li class="elem_bot">Balance: <p class="cont_elem_bot">${web3js.utils.fromWei(sub[b][1].balance)} ETH</p></li>
-                    <li class="elem_bot">Max Buy price: <p class="cont_elem_bot">${web3js.utils.fromWei(sub[b][1].maxBuyPrice)} ETH</p></li>
-                    <li class="elem_bot">Expiration date: <p class="cont_elem_bot">${end_date}</p></li>
-                    <li class="elem_bot">N° of NFTs bought: <p class="cont_elem_bot">${sub[b][1].tokenBought.length}</p></li>
+                    <li class="elem_bot">Balance: <p class="cont_elem_bot">${web3.utils.fromWei(sub[b][1].balance)} ETH</p></li>
+                    <li class="elem_bot">Max Buy price: <p class="cont_elem_bot">${web3.utils.fromWei(sub[b][1].maxBuyPrice)} ETH</p></li>
+                    <li class="elem_bot">N° of NFTs bought: <p class="cont_elem_bot">${sub[b][1].tokenBought}</p></li>
+                    <li class="elem_bot">OrderBook for Collection: <p class="cont_elem_bot">${maxBuyPrices}</p></li>
                 </ul>
-                <input type="text" class="form-control mybot_amount" id="amount-${sub[b].id}" name="amount" placeholder="Amount in ETH">
                 <div class="buttons_mybot">
-                    <button class="btn-withdrawnft" value="${sub[b].id}" data-contract="${sub[b][1].nftCollection}" onclick="WithDrawNFT(this)" type="submit" data-loading-text="Withdrawing...">WITHDRAW NFT</button>
-                    <button class="btn-withdrawnft" value="${sub[b].id}" data-contract="${sub[b][1].nftCollection}" onclick="AddETH(this)" type="submit" data-loading-text="Withdrawing...">ADD ETH TO BALANCE</button>
-                    <button class="btn-withdrawnft" value="${sub[b].id}" data-contract="${sub[b][1].nftCollection}" onclick="ExtendSub(this)" type="submit" data-loading-text="Withdrawing...">EXTEND SUBSCRIPTION</button>
-                    <button class="btn-withdrawnft" value="${sub[b].id}" onclick="WithDrawSub(this.value)" type="submit" data-loading-text="Withdrawing...">REVOKE AND WITHDRAW SUBSCRIPTION</button>
+                    <button class="btn-withdrawnft" value="${sub[b].id}" onclick="WithDrawSub(this.value)" type="submit" data-loading-text="Withdrawing...">REVOKE AND WITHDRAW ORDER</button>
                 </div>
                 </div>
                 <div class="mybot_image_container">
@@ -68,29 +87,11 @@ $(document).ready(function() {
     async function WithDrawAll() {
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
         const account = accounts[0];
-        var web3js = new Web3(window.ethereum);
-        var NFTcontractAddress = "0xa710E47962A6fD62B181771030cE507703F0A951";
         if (window.ethereum.networkVersion != 4) {
             alert("Please switch your network to rinkeby");
         }
-        NFTcontract = new web3js.eth.Contract(NFTcontractabi, NFTcontractAddress, {from: account});
         // console.log(NFTcontract)
-        const bot = await NFTcontract.methods.withdrawAllForUser().send();
-        console.log(bot);
-        location.reload();
-    }
-
-    async function WithDrawNFTall() {
-        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-        const account = accounts[0];
-        var web3js = new Web3(window.ethereum);
-        var NFTcontractAddress = "0xa710E47962A6fD62B181771030cE507703F0A951";
-        if (window.ethereum.networkVersion != 4) {
-            alert("Please switch your network to rinkeby");
-        }
-        NFTcontract = new web3js.eth.Contract(NFTcontractabi, NFTcontractAddress, {from: account});
-        // console.log(NFTcontract)
-        const bot = await NFTcontract.methods.withdrawAllNFT().send();
+        const bot = await contract.methods.revokeAllOwnSubscriptions().send({from: account});
         console.log(bot);
         location.reload();
     }
@@ -98,118 +99,67 @@ $(document).ready(function() {
     async function getAccount() {
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
         const account = accounts[0];
-        $('.showAccount').html(account);
+        const balance = await contract.methods.getMyBalance().call({from: account});
+        $('.showBalance').html(web3.utils.fromWei(balance));
+        $('.showAccount').html(account.slice(0, 6)+'...' + account.slice(-4));
         $(".enableEthereumButton").toggle();
-        var web3js = new Web3(window.ethereum);
-        var NFTcontractAddress = "0xa710E47962A6fD62B181771030cE507703F0A951";
         if (window.ethereum.networkVersion != 4) {
             alert("Please switch your network to rinkeby");
         }
-        NFTcontract = new web3js.eth.Contract(NFTcontractabi, NFTcontractAddress);
-        console.log(NFTcontract)
     }
-    getBot();
 
-    // $(".btn-withdrawnft").click(function() {
-    //     WithDrawNFTall();
-    // });
-
-    });
-
-
-async function WithDrawNFT(button_attr) {
-    var contract = button_attr.getAttribute('data-contract');
-    var sub_id = button_attr.getAttribute('value');
-    const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-    const account = accounts[0];
-    var web3js = new Web3(window.ethereum);
-    var NFTcontractAddress = "0xa710E47962A6fD62B181771030cE507703F0A951";
-    if (window.ethereum.networkVersion != 4) {
-        alert("Please switch your network to rinkeby");
-    }
-    NFTcontract = new web3js.eth.Contract(NFTcontractabi, NFTcontractAddress, {from: account});
-    // console.log(NFTcontract)
-    const bot = await NFTcontract.methods.withdrawNFT(sub_id).send();
-    console.log(bot);
-    window.location.reload();
-}
-
-async function WithDrawSub(sub_id) {
-    const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-    const account = accounts[0];
-    var web3js = new Web3(window.ethereum);
-    var NFTcontractAddress = "0xa710E47962A6fD62B181771030cE507703F0A951";
-    if (window.ethereum.networkVersion != 4) {
-        alert("Please switch your network to rinkeby");
-    }
-    NFTcontract = new web3js.eth.Contract(NFTcontractabi, NFTcontractAddress, {from: account});
-    // console.log(NFTcontract)
-    const bot = await NFTcontract.methods.withdrawSubscription(sub_id).send();
-    console.log(bot);
-    window.location.reload();
-}
-
-async function ExtendSub(button_attr) {
-    var contract = button_attr.getAttribute('data-contract');
-    var sub_id = button_attr.getAttribute('value');
-    console.log(contract);
-    var inptfield = 'amount-' + sub_id;
-    console.log(inptfield);
-    var amount = document.getElementById(inptfield).value;
-    if (amount == '') {
-        alert("please enter an ETH amount, it can be 0");
-        amount = 0;
-    }
-    console.log(amount);
-    console.log(sub_id)
-    const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-    const account = accounts[0];
-    var web3js = new Web3(window.ethereum);
-    var NFTcontractAddress = "0xa710E47962A6fD62B181771030cE507703F0A951";
-    if (window.ethereum.networkVersion != 4) {
-        alert("Please switch your network to rinkeby");
-    }
-    NFTcontract = new web3js.eth.Contract(NFTcontractabi, NFTcontractAddress, {from: account});
-    const bot = await NFTcontract.methods.extendSubscription(sub_id).send({from: account, value: web3js.utils.toWei(amount)});
-    console.log(bot);
-    window.location.reload();
-}
-
-async function AddETH(button_attr) {
-    var contract = button_attr.getAttribute('data-contract');
-    var sub_id = button_attr.getAttribute('value');
-    console.log(contract);
-    var inptfield = 'amount-' + sub_id;
-    console.log(inptfield);
-    var amount = document.getElementById(inptfield).value;
-    console.log(amount);
-    console.log(sub_id)
-    if (amount == '') {
-        alert("please enter an ETH amount greater than 0");
-    }
-    else {
+    async function sendEthToBalance() {
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
         const account = accounts[0];
-        var web3js = new Web3(window.ethereum);
-        var NFTcontractAddress = "0xa710E47962A6fD62B181771030cE507703F0A951";
         if (window.ethereum.networkVersion != 4) {
             alert("Please switch your network to rinkeby");
         }
-        NFTcontract = new web3js.eth.Contract(NFTcontractabi, NFTcontractAddress, {from: account});
-        // console.log(NFTcontract)
-        const bot = await NFTcontract.methods.addETHToSubscription(sub_id).send({from: account, value: web3js.utils.toWei(amount)});
+        var amount = document.getElementById("eth-to-balance").value;
+        amount = amount.replace(',', '.');
+        const bot = await contract.methods.addETHtoBalance().send({from: account, value: web3.utils.toWei(amount, "ether")});
+        console.log(bot);
+        location.reload();
+        $('#eth-to-balance').css({
+            'visibility': 'collapse'
+        });
+        $('#send-eth-to-balance').css({
+            'visibility': 'collapse'
+        });
+        $('#add-eth-button').css({
+            'visibility': 'visible'
+        });
+    }
+
+    getBot();
+
+    async function WithDrawSub(sub_id) {
+        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+        const account = accounts[0];
+        if (window.ethereum.networkVersion != 4) {
+            alert("Please switch your network to rinkeby");
+        }
+        const bot = await contract.methods.revokeOwnSubscription(sub_id).send({from: account});
         console.log(bot);
         window.location.reload();
     }
-}
 
+    async function put_order(collection_address, amount_max, amount_allocated) {
+        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+        const account = accounts[0];
+        if (window.ethereum.networkVersion != 4) {
+        alert("Please switch your network to rinkeby");
+        cansub = false;
+        }
+        await contract.methods.subscribe(collection_address, web3.utils.toWei(amount_max), web3.utils.toWei(amount_allocated)).send({from: account, value: 0});
+    }
 
 if(window.ethereum) {
     window.ethereum.on('chainChanged', () => {
         window.location.reload();
-    })    
+    })
     window.ethereum.on('accountsChanged', () => {
         window.location.reload();
     })
 }
 
+});
