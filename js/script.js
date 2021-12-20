@@ -16,63 +16,6 @@ $(document).ready(function() {
       e.preventDefault();
     });
 
-    $( ".contract-form" ).submit(function( event ) {
-      // console.log( $( this ).serializeArray() );
-      var formcomp = $( this ).serializeArray();
-      console.log(formcomp[0].value);
-      buy_bot(formcomp[0].value, formcomp[1].value, formcomp[2].value)
-      event.preventDefault();
-    });
-
-    async function buy_bot(contract_address, amount_max, amount_allocated) {
-      const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-      const account = accounts[0];
-      $('.showAccount').html(account);
-      $(".enableEthereumButton").toggle();
-      var web3js = new Web3(window.ethereum);
-      var NFTcontractAddress = "0xa710E47962A6fD62B181771030cE507703F0A951";
-      console.log(amount_allocated)
-      NFTcontract = new web3js.eth.Contract(NFTcontractabi, NFTcontractAddress, {from: account});
-      console.log(NFTcontract);
-      console.log(web3js.utils.toWei(amount_max));
-      const sub_collect = await NFTcontract.methods.getRangeForCollection(contract_address).call();
-      console.log(sub_collect)
-      var mysub = [];
-      try {
-        mysub = await NFTcontract.methods.getMySubscriptions().call();
-      } catch(err) {
-        console.log(err);
-      }
-      console.log(mysub);
-      var cansub = true;
-      var maxi_price_sub = 0;
-      if (window.ethereum.networkVersion != 4) {
-        alert("Please switch your network to rinkeby");
-        cansub = false;
-      }
-      for (let b = 0; b < sub_collect.length; b++) {
-        if (amount_max < web3js.utils.fromWei(sub_collect[b][1].maxBuyPrice) > maxi_price_sub) {
-          maxi_price_sub = web3js.utils.fromWei(sub_collect[b][1].maxBuyPrice);
-          console.log("new max price")
-        }
-      }
-      for (let b = 0; b < mysub.length; b++) {
-        if (mysub[b][1].nftCollection == contract_address) {
-          alert("You already have a subscription with maximum amount buy of " + web3js.utils.fromWei(mysub[b][1].maxBuyPrice) + "ETH and balance of " + web3js.utils.fromWei(mysub[b][1].balance) + "ETH\nAdd ETH to your balance from MY BOTS page\nOr withdraw and create a new subscription to increase maximum buy price");
-          cansub = false;
-        }
-      }
-      if (amount_max < maxi_price_sub && cansub == true) {
-        alert("There's already a subscription for a max price of " + maxi_price_sub + "ETH\nPlease enter a higher buying price");
-        cansub = false;
-      }
-      if (cansub == true) {
-        const create_sub = await NFTcontract.methods.subscribe(contract_address, web3js.utils.toWei(amount_max)).send({from: account, value: web3js.utils.toWei(amount_allocated)});
-        console.log(create_sub);
-        alert("Subscription succeed : THANKS");
-      }
-    }
-
     async function getAccount() {
       const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
       const account = accounts[0];

@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>NFT Snipe Tool - Bot</title>
+	<title>NFT Snipe Tool</title>
 	<meta name="description" content="NFT Snipe Tool - Automatically buy your NFT">
 	<meta name="author" content="RichCorp">
 
@@ -38,17 +38,34 @@
 				<button class="backtomain" onclick="window.location.href='index.html'">Back to main page</button>
 			</div>
 			<div class="button_account">
+				<input type="text" id="eth-to-balance" value="1.0">
+				<button id="send-eth-to-balance" type="submit" data-loading-text="">Send</button>
+				<h2 class="show_balance"> Balance: <span class="showBalance"></span> ETH</h2>
+				&nbsp <button id="add-eth-button" type="submit" data-loading-text="">+</button> &nbsp
 				<button class="enableEthereumButton">Connect wallet</button>
 				<h2 class="show_account">Account: <span class="showAccount"></span></h2>
 			</div>
 		</header>
 		<main id="main-content" class="page-sections">
+			<div class="site_elem_1">
+				<h1 class="title_site_elem1" id="buy">Subscribe</h1>
+				<div class="contain_contact_form5">
+					<form class="contract-form" role="form">
+						<p class="input_buy">Collection Address:</p>
+						<input type="text" class="form-control" id="address" name="address" placeholder="0x495f947276749Ce646f68AC8c248420045cb7b5e">
+						<p class="input_buy">Maximum Price:</p>
+						<input type="text" class="form-control" id="amount" name="amount" placeholder="0.5">
+						<p class="input_buy">ETH Balance:</p>
+						<input type="text" class="form-control" id="amount_alloc" name="amount_alloc" placeholder="0.15">
+						<button class="btn-buy" type="submit" id="put_order" data-loading-text="Buying...">Buy</button>
+					</form>
+				</div>
+			</div>
             <section class="mybotsection">
-                <h1 class="mybottitle">MY SUBSCRIPTION</h1>
+                <h1 class="mybottitle">MY ORDERS</h1>
                 <div class="mybots">
-					<button class="btn-withdrawallsub" type="submit" data-loading-text="Withdrawing...">REVOKE AND WITHDRAW ALL SUBSCRIPTIONS</button>
-					<button class="btn-withdrawallnft" type="submit" data-loading-text="Withdrawing...">WITHDRAW ALL NFT</button>
-					<h1 class="noactive">NO ACTIVE SUBSCRIPTIONS</h1>
+					<button class="btn-withdrawallsub" type="submit" data-loading-text="Withdrawing...">REVOKE AND WITHDRAW ALL ORDERS</button>
+					<h1 class="noactive">NO ACTIVE ORDERS</h1>
                     <!-- WHERE BOTS WILL BE INSERTED -->
                 </div>
             </section>
