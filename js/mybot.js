@@ -31,7 +31,8 @@ $(document).ready(function() {
     $( ".contract-form" ).submit(function( event ) {
         // console.log( $( this ).serializeArray() );
         var formcomp = $( this ).serializeArray();
-        put_order(formcomp[0].value, formcomp[1].value, formcomp[2].value)
+        put_order(formcomp[0].value, formcomp[1].value, formcomp[2].value);
+        // location.reload();
         event.preventDefault();
     });
 
@@ -132,17 +133,6 @@ $(document).ready(function() {
 
     getBot();
 
-    async function WithDrawSub(sub_id) {
-        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-        const account = accounts[0];
-        if (window.ethereum.networkVersion != 4) {
-            alert("Please switch your network to rinkeby");
-        }
-        const bot = await contract.methods.revokeOwnSubscription(sub_id).send({from: account});
-        console.log(bot);
-        window.location.reload();
-    }
-
     async function put_order(collection_address, amount_max, amount_allocated) {
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
         const account = accounts[0];
@@ -150,7 +140,8 @@ $(document).ready(function() {
         alert("Please switch your network to rinkeby");
         cansub = false;
         }
-        await contract.methods.subscribe(collection_address, web3.utils.toWei(amount_max), web3.utils.toWei(amount_allocated)).send({from: account, value: 0});
+        const order = await contract.methods.subscribe(collection_address, web3.utils.toWei(amount_max), web3.utils.toWei(amount_allocated)).send({from: account, value: 0});
+        location.reload();
     }
 
 if(window.ethereum) {
@@ -163,3 +154,19 @@ if(window.ethereum) {
 }
 
 });
+
+
+
+async function WithDrawSub(sub_id) {
+    let contract_address = "0xce393C17835d11a066BC863306111e328Dfd50a5";
+    var web3 = new Web3(window.ethereum);
+    let contract = new web3.eth.Contract(NFTcontractabi, contract_address);
+    const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+    const account = accounts[0];
+    if (window.ethereum.networkVersion != 4) {
+        alert("Please switch your network to rinkeby");
+    }
+    const bot = await contract.methods.revokeOwnSubscription(sub_id).send({from: account});
+    console.log(bot);
+    window.location.reload();
+}

@@ -24,7 +24,7 @@
 	<link rel="stylesheet" href="css/style.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
-	<script src="js/web3.min.js"></script>
+	<!-- <script src="js/web3.min.js"></script> -->
 	<script src="js/NFT_contract_abi.js"></script>
     <script src="js/mybot.js"></script>
 	</head>
@@ -38,17 +38,17 @@
 				<button class="backtomain" onclick="window.location.href='index.html'">Back to main page</button>
 			</div>
 			<div class="button_account">
-				<input type="text" id="eth-to-balance" value="1.0">
-				<button id="send-eth-to-balance" type="submit" data-loading-text="">Send</button>
+				<input class="add_eth_to_bal" type="text" id="eth-to-balance" value="1.0">
+				<button class="send_eth_button" id="send-eth-to-balance" type="submit" data-loading-text="">Send</button>
 				<h2 class="show_balance"> Balance: <span class="showBalance"></span> ETH</h2>
-				&nbsp <button id="add-eth-button" type="submit" data-loading-text="">+</button> &nbsp
+				<button class="button_plus" id="add-eth-button" type="submit" data-loading-text="">+</button>
 				<button class="enableEthereumButton">Connect wallet</button>
 				<h2 class="show_account">Account: <span class="showAccount"></span></h2>
 			</div>
 		</header>
 		<main id="main-content" class="page-sections">
 			<div class="site_elem_1">
-				<h1 class="title_site_elem1" id="buy">Subscribe</h1>
+				<h1 class="mybottitle" id="buy">Subscribe</h1>
 				<div class="contain_contact_form5">
 					<form class="contract-form" role="form">
 						<p class="input_buy">Collection Address:</p>
@@ -80,7 +80,7 @@
 				<img class="logo_img_head" src="images/LOGO.png" alt="logo">
 			</div>
 			<div class="contain_name">
-				<p class="foot_name">NFT Watcher&copy;</p>
+				<p class="foot_name">NFT EXtrat</p>
 			</div>
 		</footer>
 	</body>
