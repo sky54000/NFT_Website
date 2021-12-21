@@ -58,10 +58,12 @@ $(document).ready(function() {
             console.log(sub[b][1].nftCollection);
             let maxBuyPrices = []
             for (let i = 0; i < sub.length; ++i) {
-                maxBuyPrice = sub[i][1].maxBuyPrice;
-                if (sub[i][1].balance > sub[i][1].maxBuyPrice)
-                    maxBuyPrice = sub[i][1].balance;
-                maxBuyPrices.push(web3.utils.fromWei(maxBuyPrice));
+                if (sub[i][1].nftCollection == sub[b][1].collection) {
+                    maxBuyPrice = sub[i][1].maxBuyPrice;
+                    if (sub[i][1].balance > sub[i][1].maxBuyPrice)
+                        maxBuyPrice = sub[i][1].balance;
+                    maxBuyPrices.push(web3.utils.fromWei(maxBuyPrice));
+                }
             }
             maxBuyPrices.sort();
             $(".mybots").append(`<div class="container_mybots">
