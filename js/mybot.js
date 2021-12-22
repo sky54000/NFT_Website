@@ -102,13 +102,13 @@ $(document).ready(function() {
         location.reload();
     }
 
-    async function WithdrawAll() {
+    async function WithDrawAll() {
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
         const account = accounts[0];
         if (window.ethereum.networkVersion != 4) {
             alert("Please switch your network to rinkeby");
         }
-        const availableBalance = await getMyAvailableETH();
+        const availableBalance = await contract.methods.getMyAvailableETH().call({from: account});
         const bot = await contract.methods.withdrawAvailableETH(availableBalance).send({from: account});
         console.log(bot);
         location.reload();
