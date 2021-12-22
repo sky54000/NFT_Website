@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    let contract_address = "0x1C4470B03897E88B702CEdC82B9021BD487c7a95";
+    let contract_address = "0xDAc91Db0B56411F979685ec7AF651211B07E5faF";
     var web3 = new Web3(window.ethereum);
     let contract = new web3.eth.Contract(NFTcontractabi, contract_address);
 
