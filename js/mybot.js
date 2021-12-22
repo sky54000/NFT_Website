@@ -8,7 +8,11 @@ $(document).ready(function() {
         getAccount();
     });
 
-    $(".btn-withdrawallsub").click(function() {
+    $(".btn-revokewallsub").click(function() {
+        RevokeAll();
+    });
+
+    $(".btn-withdrawall").click(function() {
         WithDrawAll();
     });
 
@@ -87,14 +91,25 @@ $(document).ready(function() {
         }
     }
 
-    async function WithDrawAll() {
+    async function RevokeAll() {
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
         const account = accounts[0];
         if (window.ethereum.networkVersion != 4) {
             alert("Please switch your network to rinkeby");
         }
-        // console.log(NFTcontract)
         const bot = await contract.methods.revokeAllOwnSubscriptions().send({from: account});
+        console.log(bot);
+        location.reload();
+    }
+
+    async function WithdrawAll() {
+        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+        const account = accounts[0];
+        if (window.ethereum.networkVersion != 4) {
+            alert("Please switch your network to rinkeby");
+        }
+        const availableBalance = await getMyAvailableETH();
+        const bot = await contract.methods.withdrawAvailableETH(availableBalance).send({from: account});
         console.log(bot);
         location.reload();
     }
