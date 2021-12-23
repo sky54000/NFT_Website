@@ -62,7 +62,7 @@ input,textarea {
 }
 
 #eth-to-balance,#send-eth-to-balance {
-   visibility: collapse;
+   display: none;
 }
 
 .size_adjust {
@@ -499,7 +499,7 @@ input,textarea {
   transition: all 250ms ease, box-shadow 200ms ease, -webkit-filter 2000ms cubic-bezier(.165, .84, .44, 1);
   transition: all 250ms ease, filter 2000ms cubic-bezier(.165, .84, .44, 1), box-shadow 200ms ease;
   transition: all 250ms ease, filter 2000ms cubic-bezier(.165, .84, .44, 1), box-shadow 200ms ease, -webkit-filter 2000ms cubic-bezier(.165, .84, .44, 1);
-  font-family: Stratoslcweb, sans-serif;
+  /* font-family: Stratoslcweb, sans-serif; */
   color: #fff;
   font-size: 16px;
   line-height: 1.4;
@@ -535,7 +535,7 @@ input,textarea {
   transition: all 250ms ease, box-shadow 200ms ease, -webkit-filter 2000ms cubic-bezier(.165, .84, .44, 1);
   transition: all 250ms ease, filter 2000ms cubic-bezier(.165, .84, .44, 1), box-shadow 200ms ease;
   transition: all 250ms ease, filter 2000ms cubic-bezier(.165, .84, .44, 1), box-shadow 200ms ease, -webkit-filter 2000ms cubic-bezier(.165, .84, .44, 1);
-  font-family: Stratoslcweb, sans-serif;
+  /* font-family: Stratoslcweb, sans-serif; */
   color: #fff;
   font-size: 16px;
   line-height: 1.4;
@@ -601,6 +601,7 @@ input,textarea {
 
 .elem_bot {
   padding-left: 20px;
+  font-size: 14px;
 }
 
 .cont_elem_bot {
@@ -608,6 +609,7 @@ input,textarea {
   display: inline-flex;
 }
 
+/* withdrawAvailableETH(uint _amount) */
 
 .btn-withdrawall {
   padding: 15px 20px;
@@ -619,7 +621,7 @@ input,textarea {
   transition: all 250ms ease, box-shadow 200ms ease, -webkit-filter 2000ms cubic-bezier(.165, .84, .44, 1);
   transition: all 250ms ease, filter 2000ms cubic-bezier(.165, .84, .44, 1), box-shadow 200ms ease;
   transition: all 250ms ease, filter 2000ms cubic-bezier(.165, .84, .44, 1), box-shadow 200ms ease, -webkit-filter 2000ms cubic-bezier(.165, .84, .44, 1);
-  font-family: Stratoslcweb, sans-serif;
+  /* font-family: Stratoslcweb, sans-serif; */
   color: #fff;
   font-size: 16px;
   line-height: 1.4;
@@ -627,14 +629,14 @@ input,textarea {
   text-align: center;
   letter-spacing: 0.5px;
   cursor: pointer;
-  margin-top: 25px;
   border: 0;
   text-decoration: none;
+  display: block;
   margin-left: 5%;
+  margin-top: 25px;
 }
 
-.btn-revokewallsub {
-  visibility: collapse;
+.btn-withdrawamount {
   padding: 15px 20px;
   border-radius: 12px;
   background-color: #fff;
@@ -644,7 +646,31 @@ input,textarea {
   transition: all 250ms ease, box-shadow 200ms ease, -webkit-filter 2000ms cubic-bezier(.165, .84, .44, 1);
   transition: all 250ms ease, filter 2000ms cubic-bezier(.165, .84, .44, 1), box-shadow 200ms ease;
   transition: all 250ms ease, filter 2000ms cubic-bezier(.165, .84, .44, 1), box-shadow 200ms ease, -webkit-filter 2000ms cubic-bezier(.165, .84, .44, 1);
-  font-family: Stratoslcweb, sans-serif;
+  /* font-family: Stratoslcweb, sans-serif; */
+  color: #fff;
+  font-size: 16px;
+  line-height: 1.4;
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  border: 0;
+  text-decoration: none;
+}
+
+.btn-revokewallsub {
+  /* visibility: collapse; */
+  display: block;
+  padding: 15px 20px;
+  border-radius: 12px;
+  background-color: #fff;
+  background-image: linear-gradient(200deg, #9e61ff, rgba(142, 97, 255, 0) 34%), radial-gradient(circle farthest-corner at 0% -100%, #619bff 20%, rgba(205, 219, 248, 0) 51%), linear-gradient(180deg, #6c52ee, #6c52ee);
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.19), 0 0 15px 0 rgba(238, 1, 255, 0.57), 0 5px 53px 0 rgba(0, 29, 255, 0.73);
+  -webkit-transition: all 250ms ease, box-shadow 200ms ease, -webkit-filter 2000ms cubic-bezier(.165, .84, .44, 1);
+  transition: all 250ms ease, box-shadow 200ms ease, -webkit-filter 2000ms cubic-bezier(.165, .84, .44, 1);
+  transition: all 250ms ease, filter 2000ms cubic-bezier(.165, .84, .44, 1), box-shadow 200ms ease;
+  transition: all 250ms ease, filter 2000ms cubic-bezier(.165, .84, .44, 1), box-shadow 200ms ease, -webkit-filter 2000ms cubic-bezier(.165, .84, .44, 1);
+  /* font-family: Stratoslcweb, sans-serif; */
   color: #fff;
   font-size: 16px;
   line-height: 1.4;
@@ -668,7 +694,7 @@ input,textarea {
   transition: all 250ms ease, box-shadow 200ms ease, -webkit-filter 2000ms cubic-bezier(.165, .84, .44, 1);
   transition: all 250ms ease, filter 2000ms cubic-bezier(.165, .84, .44, 1), box-shadow 200ms ease;
   transition: all 250ms ease, filter 2000ms cubic-bezier(.165, .84, .44, 1), box-shadow 200ms ease, -webkit-filter 2000ms cubic-bezier(.165, .84, .44, 1);
-  font-family: Stratoslcweb, sans-serif;
+  /* font-family: Stratoslcweb, sans-serif; */
   color: #fff;
   font-size: 16px;
   line-height: 1.4;
@@ -676,10 +702,13 @@ input,textarea {
   text-align: center;
   letter-spacing: 0.5px;
   cursor: pointer;
-  margin-top: 25px;
   border: 0;
   text-decoration: none;
-  margin-left: 5%;
+}
+
+.contain_withdraw_buttons {
+  display: block;
+  width: 100%;
 }
 
 .backtomain {
@@ -766,85 +795,143 @@ input,textarea {
   padding-top: 30px;
 }
 
-.show_balance {
+.contain_balance {
+  display: inline-flex;
+  width: 100%;
+  padding-top: 25px;
+  padding-left: 5%;
+  align-items: center;
+}
+
+.show_acc_balance {
   color: rgba(255, 255, 255, 0.6);
   font-size: 16px;
+  margin-left: 15px;
+}
+
+.show_balance {
+  color: #7b61ff;
   padding-left: 10px;
+  font-size: 16px;
+}
+
+.my_acc_balance {
+  color: #fff;  
 }
 
 .button_plus {
-  height: 50%;
-  display: inline-block;
-  color: rgba(255, 255, 255, 0.6);
-  border: 0;
-  line-height: inherit;
-  text-decoration: none;
-  cursor: pointer;
-  border-style: solid;
-  border-width: 1px;
-  border-color: hsla(0, 0%, 100%, 0.15);
+  padding: 10px 15px;
   border-radius: 12px;
-  background-color: transparent;
-  -webkit-transition: all 200ms ease;
-  transition: all 200ms ease;
+  background-color: #fff;
+  background-image: linear-gradient(200deg, #9e61ff, rgba(142, 97, 255, 0) 34%), radial-gradient(circle farthest-corner at 0% -100%, #619bff 20%, rgba(205, 219, 248, 0) 51%), linear-gradient(180deg, #6c52ee, #6c52ee);
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.19), 0 0 15px 0 rgba(238, 1, 255, 0.57), 0 5px 53px 0 rgba(0, 29, 255, 0.73);
+  -webkit-transition: all 250ms ease, box-shadow 200ms ease, -webkit-filter 2000ms cubic-bezier(.165, .84, .44, 1);
+  transition: all 250ms ease, box-shadow 200ms ease, -webkit-filter 2000ms cubic-bezier(.165, .84, .44, 1);
+  transition: all 250ms ease, filter 2000ms cubic-bezier(.165, .84, .44, 1), box-shadow 200ms ease;
+  transition: all 250ms ease, filter 2000ms cubic-bezier(.165, .84, .44, 1), box-shadow 200ms ease, -webkit-filter 2000ms cubic-bezier(.165, .84, .44, 1);
+  /* font-family: Stratoslcweb, sans-serif; */
+  color: #fff;
+  font-size: 16px;
+  line-height: 1.4;
   font-weight: 400;
-  margin-right: 15px;
-  margin-left: 10px;
-  padding: 5px;
+  text-align: center;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  border: 0;
+  text-decoration: none;
 }
 
 .button_plus:hover {
-  border-color: #7b61ff;
-  background-color: rgba(123, 97, 255, 0.2);
-  color: #7b61ff;
-  outline: 0;
+  border-style: none;
+  border-width: 1px;
+  border-color: hsla(0, 0%, 100%, 0.26);
+  box-shadow: 5px 0 30px 0 rgba(0, 0, 0, 0.1);
+  -webkit-filter: hue-rotate(83deg);
+  filter: hue-rotate(83deg);
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 .add_eth_to_balance {
-  --tw-text-opacity: 1;
-  color: rgba(209,213,219,var(--tw-text-opacity));
-  /* padding-left: 2.5rem;
-  padding-right: 1rem; */
-  --tw-bg-opacity: 1;
-  background-color: rgba(9,9,9,var(--tw-bg-opacity));
-  --tw-border-opacity: 1;
-  border-color: hsla(0, 0%, 100%, 0.15);
-  border-width: 1px;
-  border-radius: .375rem;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 1rem;
   color: rgba(255, 255, 255, 0.6);
-  margin-right: 10px;
+  background-color: #000;
 }
 
 .add_eth_to_balance:focus {
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-  --tw-border-opacity: 1;
-  border-color: rgba(123,97,255,var(--tw-border-opacity));
+  display: block;
+  transition: 0.2s;
+  font-size: 1rem;
+  color: #7B61FF;
+  font-weight: 500;
+  border-color: #7B61FF;
 }
 
 .send_eth_button {
-  height: 50%;
-  display: inline-block;
-  color: rgba(255, 255, 255, 0.6);
-  border: 0;
-  line-height: inherit;
-  text-decoration: none;
-  cursor: pointer;
-  border-style: solid;
-  border-width: 1px;
-  border-color: hsla(0, 0%, 100%, 0.15);
+  padding: 15px 20px;
   border-radius: 12px;
-  background-color: transparent;
-  -webkit-transition: all 200ms ease;
-  transition: all 200ms ease;
+  background-color: #fff;
+  background-image: linear-gradient(200deg, #9e61ff, rgba(142, 97, 255, 0) 34%), radial-gradient(circle farthest-corner at 0% -100%, #619bff 20%, rgba(205, 219, 248, 0) 51%), linear-gradient(180deg, #6c52ee, #6c52ee);
+  box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.19), 0 0 15px 0 rgba(238, 1, 255, 0.57), 0 5px 53px 0 rgba(0, 29, 255, 0.73);
+  -webkit-transition: all 250ms ease, box-shadow 200ms ease, -webkit-filter 2000ms cubic-bezier(.165, .84, .44, 1);
+  transition: all 250ms ease, box-shadow 200ms ease, -webkit-filter 2000ms cubic-bezier(.165, .84, .44, 1);
+  transition: all 250ms ease, filter 2000ms cubic-bezier(.165, .84, .44, 1), box-shadow 200ms ease;
+  transition: all 250ms ease, filter 2000ms cubic-bezier(.165, .84, .44, 1), box-shadow 200ms ease, -webkit-filter 2000ms cubic-bezier(.165, .84, .44, 1);
+  color: #fff;
+  font-size: 16px;
+  line-height: 1.4;
   font-weight: 400;
-  margin-right: 15px;
+  text-align: center;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  border: 0;
+  text-decoration: none;
 }
+
 .send_eth_button:hover {
-  border-color: #7b61ff;
-  background-color: rgba(123, 97, 255, 0.2);
+  border-style: none;
+  border-width: 1px;
+  border-color: hsla(0, 0%, 100%, 0.26);
+  box-shadow: 5px 0 30px 0 rgba(0, 0, 0, 0.1);
+  -webkit-filter: hue-rotate(83deg);
+  filter: hue-rotate(83deg);
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+.withdraw_eth_from_balance {
+  display: block;
+  transition: 0.2s;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.6);
+  background-color: #000;
+  height: fit-content;
+  align-self: center;
+  margin-left: 20px;
+}
+
+.withdraw_eth_from_balance:focus {
+  display: block;
+  transition: 0.2s;
+  font-size: 1rem;
+  color: #7B61FF;
+  font-weight: 500;
+  border-color: #7B61FF;
+}
+
+.contain_withdraw_eth {
+  display: inline-flex;
+  margin-left: 5%;
+  margin-top: 25px;
+}
+
+.currency_sent {
   color: #7b61ff;
-  outline: 0;
 }
 
 .footer_main {

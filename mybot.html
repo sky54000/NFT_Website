@@ -38,34 +38,52 @@
 				<button class="backtomain" onclick="window.location.href='index.html'">Back to main page</button>
 			</div>
 			<div class="button_account">
-				<input class="add_eth_to_bal" type="text" id="eth-to-balance" value="1.0">
-				<button class="send_eth_button" id="send-eth-to-balance" type="submit" data-loading-text="">Send</button>
-				<h2 class="show_balance"> Balance: <span class="showBalance"></span> ETH</h2>
-				<button class="button_plus" id="add-eth-button" type="submit" data-loading-text="">+</button>
 				<button class="enableEthereumButton">Connect wallet</button>
-				<h2 class="show_account">Account: <span class="showAccount"></span></h2>
+				<h2 class="show_account">Address: <span class="showAccount"></span></h2>
+				<h2 class="show_acc_balance">Balance: <span class="showAccountBalance"></span> ETH</h2>
 			</div>
 		</header>
 		<main id="main-content" class="page-sections">
+			<section class="sect_balance">
+				<h1 class="mybottitle" id="buy">Balance</h1>
+				<div class="contain_balance">
+					<button class="button_plus" id="add-eth-button" type="submit" data-loading-text="">+</button>
+					<input class="add_eth_to_balance" type="text" id="eth-to-balance" value="1.0">
+					<!-- <span class="currency_sent"> ETH</span> -->
+					<button class="send_eth_button" id="send-eth-to-balance" type="submit" data-loading-text="">Send</button>
+					<h2 class="show_balance"><span class="my_acc_balance">Balance:</span> <span class="showBalance"></span> ETH</h2>
+				</div>
+				<button class="btn-withdrawall" type="submit" data-loading-text="Processing...">WITHDRAW ALL ETH</button>
+				<div class="contain_withdraw_eth">
+					<button class="btn-withdrawamount" type="submit" data-loading-text="Processing...">WITHDRAW ETH</button>
+					<input class="withdraw_eth_from_balance" id="amount_withdraw_eth" type="text" value="1.0"> ETH
+				</div>
+			</section>
 			<div class="site_elem_1">
 				<h1 class="mybottitle" id="buy">Subscribe</h1>
 				<div class="contain_contact_form5">
 					<form class="contract-form" role="form">
 						<p class="input_buy">Collection Address:</p>
 						<input type="text" class="form-control" id="address" name="address" placeholder="0x495f947276749Ce646f68AC8c248420045cb7b5e">
+						<!-- <table id="tab_active_orders" class="tab_orders_active">
+						</table> -->
 						<p class="input_buy">Maximum Price:</p>
 						<input type="text" class="form-control" id="amount" name="amount" placeholder="0.5">
 						<p class="input_buy">ETH Balance:</p>
 						<input type="text" class="form-control" id="amount_alloc" name="amount_alloc" placeholder="0.15">
 						<button class="btn-buy" type="submit" id="put_order" data-loading-text="Buying...">Buy</button>
+						<!-- <div class="alerts_actions">
+							<p class="action_order_success">Order successfully created ! Thanks !</p>
+						</div> -->
 					</form>
 				</div>
 			</div>
             <section class="mybotsection">
                 <h1 class="mybottitle">MY ORDERS</h1>
                 <div class="mybots">
-					<button class="btn-withdrawall" type="submit" data-loading-text="Processing...">WITHDRAW AVAILABLE ETH</button>
-					<button class="btn-revokewallsub" type="submit" data-loading-text="Processing...">REVOKE ALL ORDERS</button>
+					<div class="contain_withdraw_buttons">
+						<button class="btn-revokewallsub" type="submit" data-loading-text="Processing...">REVOKE ALL ORDERS</button>
+					</div>
 					<h1 class="noactive">NO ACTIVE ORDERS</h1>
                     <!-- WHERE BOTS WILL BE INSERTED -->
                 </div>

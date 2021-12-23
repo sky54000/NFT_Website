@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    let contract_address = "0xcef7a38241a25690d81Ed5Cb240cd927Bd40fB7F";
+    let contract_address = "0xa22F07055897101c39Dfb9Dd7ba1d4C7B61BD450";
     var web3 = new Web3(window.ethereum);
     let contract = new web3.eth.Contract(NFTcontractabi, contract_address);
 
@@ -16,15 +16,19 @@ $(document).ready(function() {
         WithDrawAll();
     });
 
+    $(".btn-withdrawamount").click(function() {
+        WithDrawAmount();
+    });
+
     $('#add-eth-button').click(function(){
         $('#eth-to-balance').css({
-            'visibility': 'visible'
+            'display': 'block'
         });
         $('#send-eth-to-balance').css({
-            'visibility': 'visible'
+            'display': 'block'
         });
         $('#add-eth-button').css({
-            'visibility': 'hidden'
+            'display': 'none'
         });
     });
 
@@ -44,8 +48,12 @@ $(document).ready(function() {
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
         const account = accounts[0];
         const balance = await contract.methods.getMyBalance().call({from: account});
+        const acc_balance = await web3.eth.getBalance(account);
+        const account_balance = web3.utils.fromWei(acc_balance);
+        console.log(account_balance);
         $('.showBalance').html(web3.utils.fromWei(balance));
         $('.showAccount').html(account.slice(0, 6)+'...' + account.slice(-4));
+        $('.showAccountBalance').html(Math.round(account_balance * 1000)/1000);
         $(".enableEthereumButton").toggle();
         if (window.ethereum.networkVersion != 4) {
             alert("Please switch your network to rinkeby");
@@ -113,7 +121,24 @@ $(document).ready(function() {
             alert("Please switch your network to rinkeby");
         }
         const availableBalance = await contract.methods.getMyAvailableETH().call({from: account});
+        console.log(availableBalance);
         const bot = await contract.methods.withdrawAvailableETH(availableBalance).send({from: account});
+        console.log(bot);
+        location.reload();
+    }
+
+    async function WithDrawAmount() {
+        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+        const account = accounts[0];
+        if (window.ethereum.networkVersion != 4) {
+            alert("Please switch your network to rinkeby");
+        }
+        var amount = document.getElementById("amount_withdraw_eth").value;
+        amount = amount.replace(',', '.');
+        console.log(amount);
+        const availableBalance = await contract.methods.getMyAvailableETH().call({from: account});
+        console.log(availableBalance);
+        const bot = await contract.methods.withdrawAvailableETH(web3.utils.toWei(amount)).send({from: account});
         console.log(bot);
         location.reload();
     }
@@ -142,13 +167,13 @@ $(document).ready(function() {
         console.log(bot);
         location.reload();
         $('#eth-to-balance').css({
-            'visibility': 'collapse'
+            'display': 'none'
         });
         $('#send-eth-to-balance').css({
-            'visibility': 'collapse'
+            'display': 'none'
         });
         $('#add-eth-button').css({
-            'visibility': 'visible'
+            'display': 'block'
         });
     }
 
@@ -179,7 +204,7 @@ if(window.ethereum) {
 
 
 async function WithDrawSub(sub_id) {
-    let contract_address = "0xce393C17835d11a066BC863306111e328Dfd50a5";
+    let contract_address = "0xa22F07055897101c39Dfb9Dd7ba1d4C7B61BD450";
     var web3 = new Web3(window.ethereum);
     let contract = new web3.eth.Contract(NFTcontractabi, contract_address);
     const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
