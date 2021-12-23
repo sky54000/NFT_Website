@@ -71,12 +71,8 @@ $(document).ready(function() {
             }
             maxBuyPrices.sort();
             trueRealBalanceForSub = web3.utils.fromWei(sub[b][1].balance);
-            console.log(sub[b][1].balance);
-            console.log(balance);
             if (Number(sub[b][1].balance) > Number(balance)) {
-                console.log("yes")
                 trueRealBalanceForSub = web3.utils.fromWei(balance).slice(0,5) + " (" + trueRealBalanceForSub + ")";
-                console.log(trueRealBalanceForSub)
             }
             $(".mybots").append(`<div class="container_mybots">
                 <div class="mybot">
