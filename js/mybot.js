@@ -70,12 +70,20 @@ $(document).ready(function() {
                 }
             }
             maxBuyPrices.sort();
+            trueRealBalanceForSub = web3.utils.fromWei(sub[b][1].balance);
+            console.log(sub[b][1].balance);
+            console.log(balance);
+            if (Number(sub[b][1].balance) > Number(balance)) {
+                console.log("yes")
+                trueRealBalanceForSub = web3.utils.fromWei(balance).slice(0,5) + " (" + trueRealBalanceForSub + ")";
+                console.log(trueRealBalanceForSub)
+            }
             $(".mybots").append(`<div class="container_mybots">
                 <div class="mybot">
                 <h1 class="mybot_title">Order ${sub[b].id}</h1>
                 <ul class="list_bot">
                     <li class="elem_bot">Collection: <p class="cont_elem_bot">${sub[b][1].nftCollection}</p></li>
-                    <li class="elem_bot">Balance: <p class="cont_elem_bot">${web3.utils.fromWei(sub[b][1].balance)} ETH</p></li>
+                    <li class="elem_bot">Balance: <p class="cont_elem_bot">${trueRealBalanceForSub} ETH</p></li>
                     <li class="elem_bot">Max Buy price: <p class="cont_elem_bot">${web3.utils.fromWei(sub[b][1].maxBuyPrice)} ETH</p></li>
                     <li class="elem_bot">N° of NFTs bought: <p class="cont_elem_bot">${sub[b][1].tokenBought}</p></li>
                     <li class="elem_bot">OrderBook for Collection: <p class="cont_elem_bot">${maxBuyPrices}</p></li>
