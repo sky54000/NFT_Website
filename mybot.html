@@ -11,7 +11,7 @@
 
 	<meta property="og:title" content="NFT Snipe Tool">
 	<meta property="og:type" content="website">
-	<meta property="og:url" content="https://www.mysite.com/">
+	<meta property="og:url" content="https://www.nft-tools.org/">
 	<meta property="og:description" content="NFT Snipe Tool - Automatically buy your NFT">
 	<meta property="og:image" content="images/image.png">
 
@@ -64,9 +64,13 @@
 				<div class="contain_contact_form5">
 					<form class="contract-form" role="form">
 						<p class="input_buy">Collection Address:</p>
-						<input type="text" class="form-control" id="address" name="address" placeholder="0x495f947276749Ce646f68AC8c248420045cb7b5e">
-						<!-- <table id="tab_active_orders" class="tab_orders_active">
-						</table> -->
+						<input type="text" class="form-control" id="address" name="address" onblur="ShowCurrentOrders(this.value)" placeholder="0x495f947276749Ce646f68AC8c248420045cb7b5e">
+						<div class="contain_title_table_orders" id="contain_title_table_orders">
+							<!-- WHERE TITLE WILL BE INSERTED -->
+						</div>
+						<table id="tab_active_orders" class="tab_orders_active">
+							<!-- WHERE CURRENT ODERS WILL BE INSERTED -->
+						</table>
 						<p class="input_buy">Maximum Price:</p>
 						<input type="text" class="form-control" id="amount" name="amount" placeholder="0.5">
 						<p class="input_buy">ETH Balance:</p>

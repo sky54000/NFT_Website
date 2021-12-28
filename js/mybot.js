@@ -149,7 +149,9 @@ $(document).ready(function() {
         const balance = await contract.methods.getMyBalance().call({from: account});
         $('.showBalance').html(web3.utils.fromWei(balance));
         $('.showAccount').html(account.slice(0, 6)+'...' + account.slice(-4));
-        $(".enableEthereumButton").toggle();
+        if($(".enableEthereumButton").is(":hidden")) {
+            $(".enableEthereumButton").toggle();
+        }
         if (window.ethereum.networkVersion != 4) {
             alert("Please switch your network to rinkeby");
         }
@@ -179,29 +181,28 @@ $(document).ready(function() {
 
     getBot();
 
+    
     async function put_order(collection_address, amount_max, amount_allocated) {
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
         const account = accounts[0];
         if (window.ethereum.networkVersion != 4) {
-        alert("Please switch your network to rinkeby");
-        cansub = false;
+            alert("Please switch your network to rinkeby");
+            cansub = false;
         }
         const order = await contract.methods.subscribe(collection_address, web3.utils.toWei(amount_max), web3.utils.toWei(amount_allocated)).send({from: account, value: 0});
         location.reload();
     }
-
-if(window.ethereum) {
-    window.ethereum.on('chainChanged', () => {
-        window.location.reload();
-    })
+    
+    if(window.ethereum) {
+        window.ethereum.on('chainChanged', () => {
+            window.location.reload();
+        })
     window.ethereum.on('accountsChanged', () => {
         window.location.reload();
     })
 }
 
 });
-
-
 
 async function WithDrawSub(sub_id) {
     let contract_address = "0xa22F07055897101c39Dfb9Dd7ba1d4C7B61BD450";
@@ -215,4 +216,44 @@ async function WithDrawSub(sub_id) {
     const bot = await contract.methods.revokeOwnSubscription(sub_id).send({from: account});
     console.log(bot);
     window.location.reload();
+}
+
+async function ShowCurrentOrders(collection_address) {
+    let contract_address = "0xa22F07055897101c39Dfb9Dd7ba1d4C7B61BD450";
+    var web3 = new Web3(window.ethereum);
+    let contract = new web3.eth.Contract(NFTcontractabi, contract_address);
+    const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+    const account = accounts[0];
+    if (window.ethereum.networkVersion != 4) {
+    alert("Please switch your network to rinkeby");
+    cansub = false;
+    }
+    const active_orders =  await contract.methods.getOrderBookForCollection(collection_address).call()
+    console.log(active_orders);
+    $("#active_order_row").remove();
+    $("#active_order_row").remove();
+    $("#active_order_row").remove();
+    $("#active_order_row").remove();
+    $("#title_table_orders").remove();
+
+    $("#contain_title_table_orders").append(`
+        <h1 id="title_table_orders" class="title_table_order">All orders currently active for this collection</h1>
+    `)
+
+    $("#tab_active_orders").append(`
+    <tr id="active_order_row">
+        <td class="elem_bot_tab">ID</td>
+        <td class="elem_bot_tab">Max Buy Price</td>
+        <td class="elem_bot_tab">Balance</td>
+    </tr>
+    `)
+    for (let i = 0; i < active_orders.length; ++i) {
+        $("#tab_active_orders").append(`
+            <tr id="active_order_row">
+                <td class="elem_bot_tab"><p class="cont_elem_bot">${i+1}</p></li>
+                <td class="elem_bot_tab"><p class="cont_elem_bot">${web3.utils.fromWei(active_orders[i].subscription.maxBuyPrice)} ETH</p></li>
+                <td class="elem_bot_tab"><p class="cont_elem_bot">${web3.utils.fromWei(active_orders[i].subscription.balance)} ETH</p></li>
+            </tr>
+        `)
+    }
 }
