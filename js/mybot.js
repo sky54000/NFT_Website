@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    let contract_address = "0xa22F07055897101c39Dfb9Dd7ba1d4C7B61BD450";
+    let contract_address = "0x8551EF38659dD6146A1FE9a86A034Fb1F43F0cA5";
     var web3 = new Web3(window.ethereum);
     let contract = new web3.eth.Contract(NFTcontractabi, contract_address);
 
@@ -205,7 +205,7 @@ $(document).ready(function() {
 });
 
 async function WithDrawSub(sub_id) {
-    let contract_address = "0xa22F07055897101c39Dfb9Dd7ba1d4C7B61BD450";
+    let contract_address = "0x8551EF38659dD6146A1FE9a86A034Fb1F43F0cA5";
     var web3 = new Web3(window.ethereum);
     let contract = new web3.eth.Contract(NFTcontractabi, contract_address);
     const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
@@ -219,7 +219,7 @@ async function WithDrawSub(sub_id) {
 }
 
 async function ShowCurrentOrders(collection_address) {
-    let contract_address = "0xa22F07055897101c39Dfb9Dd7ba1d4C7B61BD450";
+    let contract_address = "0x8551EF38659dD6146A1FE9a86A034Fb1F43F0cA5";
     var web3 = new Web3(window.ethereum);
     let contract = new web3.eth.Contract(NFTcontractabi, contract_address);
     const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
