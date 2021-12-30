@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    let contract_address = "0x8551EF38659dD6146A1FE9a86A034Fb1F43F0cA5";
+    let contract_address = "0x507c59C8B9769Bd8BD9F9F92F60BAc3de9ef0608";
     var web3 = new Web3(window.ethereum);
     let contract = new web3.eth.Contract(NFTcontractabi, contract_address);
 
@@ -51,11 +51,11 @@ $(document).ready(function() {
         const acc_balance = await web3.eth.getBalance(account);
         const account_balance = web3.utils.fromWei(acc_balance);
         console.log(account_balance);
-        $('.showBalance').html(web3.utils.fromWei(balance));
+        $('.showBalance').html(Math.round(web3.utils.fromWei(balance)*1000)/1000);
         $('.showAccount').html(account.slice(0, 6)+'...' + account.slice(-4));
         $('.showAccountBalance').html(Math.round(account_balance * 1000)/1000);
         $(".enableEthereumButton").toggle();
-        if (window.ethereum.networkVersion != 4) {
+        if (window.ethereum.networkVersion != 1) {
             alert("Please switch your network to rinkeby");
         }
         const sub = await contract.methods.getMySubscriptions().call({from: account});
@@ -87,13 +87,13 @@ $(document).ready(function() {
                 <h1 class="mybot_title">Order ${sub[b].id}</h1>
                 <ul class="list_bot">
                     <li class="elem_bot">Collection: <p class="cont_elem_bot">${sub[b][1].nftCollection}</p></li>
-                    <li class="elem_bot">Balance: <p class="cont_elem_bot">${trueRealBalanceForSub} ETH</p></li>
+                    <li class="elem_bot">Balance: <p class="cont_elem_bot">${Math.round(trueRealBalanceForSub*1000)/1000} ETH</p></li>
                     <li class="elem_bot">Max Buy price: <p class="cont_elem_bot">${web3.utils.fromWei(sub[b][1].maxBuyPrice)} ETH</p></li>
                     <li class="elem_bot">N° of NFTs bought: <p class="cont_elem_bot">${sub[b][1].tokenBought}</p></li>
                     <li class="elem_bot">OrderBook for Collection: <p class="cont_elem_bot">${maxBuyPrices}</p></li>
                 </ul>
                 <div class="buttons_mybot">
-                    <button class="btn-withdrawnft" value="${sub[b].id}" onclick="WithDrawSub(this.value)" type="submit" data-loading-text="Withdrawing...">REVOKE AND WITHDRAW ORDER</button>
+                    <button class="btn-withdrawnft" value="${sub[b].id}" onclick="WithDrawSub(this.value)" type="submit" data-loading-text="Withdrawing...">REVOKE ORDER</button>
                 </div>
                 </div>
                 <div class="mybot_image_container">
@@ -106,7 +106,7 @@ $(document).ready(function() {
     async function RevokeAll() {
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
         const account = accounts[0];
-        if (window.ethereum.networkVersion != 4) {
+        if (window.ethereum.networkVersion != 1) {
             alert("Please switch your network to rinkeby");
         }
         const bot = await contract.methods.revokeAllOwnSubscriptions().send({from: account});
@@ -117,7 +117,7 @@ $(document).ready(function() {
     async function WithDrawAll() {
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
         const account = accounts[0];
-        if (window.ethereum.networkVersion != 4) {
+        if (window.ethereum.networkVersion != 1) {
             alert("Please switch your network to rinkeby");
         }
         const availableBalance = await contract.methods.getMyAvailableETH().call({from: account});
@@ -130,7 +130,7 @@ $(document).ready(function() {
     async function WithDrawAmount() {
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
         const account = accounts[0];
-        if (window.ethereum.networkVersion != 4) {
+        if (window.ethereum.networkVersion != 1) {
             alert("Please switch your network to rinkeby");
         }
         var amount = document.getElementById("amount_withdraw_eth").value;
@@ -147,12 +147,12 @@ $(document).ready(function() {
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
         const account = accounts[0];
         const balance = await contract.methods.getMyBalance().call({from: account});
-        $('.showBalance').html(web3.utils.fromWei(balance));
+        $('.showBalance').html(web3.utils.fromWei(Math.round(balance*1000)/1000));
         $('.showAccount').html(account.slice(0, 6)+'...' + account.slice(-4));
         if($(".enableEthereumButton").is(":hidden")) {
             $(".enableEthereumButton").toggle();
         }
-        if (window.ethereum.networkVersion != 4) {
+        if (window.ethereum.networkVersion != 1) {
             alert("Please switch your network to rinkeby");
         }
     }
@@ -160,7 +160,7 @@ $(document).ready(function() {
     async function sendEthToBalance() {
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
         const account = accounts[0];
-        if (window.ethereum.networkVersion != 4) {
+        if (window.ethereum.networkVersion != 1) {
             alert("Please switch your network to rinkeby");
         }
         var amount = document.getElementById("eth-to-balance").value;
@@ -185,7 +185,7 @@ $(document).ready(function() {
     async function put_order(collection_address, amount_max, amount_allocated) {
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
         const account = accounts[0];
-        if (window.ethereum.networkVersion != 4) {
+        if (window.ethereum.networkVersion != 1) {
             alert("Please switch your network to rinkeby");
             cansub = false;
         }
@@ -205,12 +205,12 @@ $(document).ready(function() {
 });
 
 async function WithDrawSub(sub_id) {
-    let contract_address = "0x8551EF38659dD6146A1FE9a86A034Fb1F43F0cA5";
+    let contract_address = "0x507c59C8B9769Bd8BD9F9F92F60BAc3de9ef0608";
     var web3 = new Web3(window.ethereum);
     let contract = new web3.eth.Contract(NFTcontractabi, contract_address);
     const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
     const account = accounts[0];
-    if (window.ethereum.networkVersion != 4) {
+    if (window.ethereum.networkVersion != 1) {
         alert("Please switch your network to rinkeby");
     }
     const bot = await contract.methods.revokeOwnSubscription(sub_id).send({from: account});
@@ -219,12 +219,12 @@ async function WithDrawSub(sub_id) {
 }
 
 async function ShowCurrentOrders(collection_address) {
-    let contract_address = "0x8551EF38659dD6146A1FE9a86A034Fb1F43F0cA5";
+    let contract_address = "0x507c59C8B9769Bd8BD9F9F92F60BAc3de9ef0608";
     var web3 = new Web3(window.ethereum);
     let contract = new web3.eth.Contract(NFTcontractabi, contract_address);
     const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
     const account = accounts[0];
-    if (window.ethereum.networkVersion != 4) {
+    if (window.ethereum.networkVersion != 1) {
     alert("Please switch your network to rinkeby");
     cansub = false;
     }
@@ -242,7 +242,7 @@ async function ShowCurrentOrders(collection_address) {
 
     $("#tab_active_orders").append(`
     <tr id="active_order_row">
-        <td class="elem_bot_tab">ID</td>
+        <td class="elem_bot_tab">Priority</td>
         <td class="elem_bot_tab">Max Buy Price</td>
         <td class="elem_bot_tab">Balance</td>
     </tr>
@@ -252,7 +252,7 @@ async function ShowCurrentOrders(collection_address) {
             <tr id="active_order_row">
                 <td class="elem_bot_tab"><p class="cont_elem_bot">${i+1}</p></li>
                 <td class="elem_bot_tab"><p class="cont_elem_bot">${web3.utils.fromWei(active_orders[i].subscription.maxBuyPrice)} ETH</p></li>
-                <td class="elem_bot_tab"><p class="cont_elem_bot">${web3.utils.fromWei(active_orders[i].subscription.balance)} ETH</p></li>
+                <td class="elem_bot_tab"><p class="cont_elem_bot">${Math.round(web3.utils.fromWei(active_orders[i].subscription.balance)*1000)/1000} ETH</p></li>
             </tr>
         `)
     }

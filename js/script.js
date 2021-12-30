@@ -21,7 +21,7 @@ $(document).ready(function() {
       const account = accounts[0];
       $('.showAccount').html(account);
       $(".enableEthereumButton").toggle();
-      if (window.ethereum.networkVersion != 4) {
+      if (window.ethereum.networkVersion != 1) {
         alert("Please switch your network to rinkeby");
       }
     }
