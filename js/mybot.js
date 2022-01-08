@@ -50,8 +50,7 @@ $(document).ready(function() {
         const balance = await contract.methods.getMyBalance().call({from: account});
         const acc_balance = await web3.eth.getBalance(account);
         const account_balance = web3.utils.fromWei(acc_balance);
-        console.log(account_balance);
-        $('.showBalance').html(Math.round(web3.utils.fromWei(balance)*1000)/1000);
+        $('.showBalance').html(web3.utils.fromWei(balance).slice(0,5));
         $('.showAccount').html(account.slice(0, 6)+'...' + account.slice(-4));
         $('.showAccountBalance').html(Math.round(account_balance * 1000)/1000);
         $(".enableEthereumButton").toggle();
@@ -62,12 +61,9 @@ $(document).ready(function() {
         $(".btn-withdrawallsub").css({
             'visibility': 'visible'
         });
-        console.log(sub);
         $(".noactive").toggle();
         // console.log(sub.length);
         for (let b = 0; b < sub.length; b++) {
-            console.log(sub[b]);
-            console.log(sub[b][1].nftCollection);
             let maxBuyPrices = []
             for (let i = 0; i < sub.length; ++i) {
                 if (sub[i][1].nftCollection == sub[b][1].collection) {
@@ -78,7 +74,7 @@ $(document).ready(function() {
                 }
             }
             maxBuyPrices.sort();
-            trueRealBalanceForSub = web3.utils.fromWei(sub[b][1].balance);
+            trueRealBalanceForSub = web3.utils.fromWei(sub[b][1].balance).slice(0,5);
             if (Number(sub[b][1].balance) > Number(balance)) {
                 trueRealBalanceForSub = web3.utils.fromWei(balance).slice(0,5) + " (" + trueRealBalanceForSub + ")";
             }
@@ -87,7 +83,7 @@ $(document).ready(function() {
                 <h1 class="mybot_title">Order ${sub[b].id}</h1>
                 <ul class="list_bot">
                     <li class="elem_bot">Collection: <p class="cont_elem_bot">${sub[b][1].nftCollection}</p></li>
-                    <li class="elem_bot">Balance: <p class="cont_elem_bot">${Math.round(trueRealBalanceForSub*1000)/1000} ETH</p></li>
+                    <li class="elem_bot">Balance: <p class="cont_elem_bot">${trueRealBalanceForSub} ETH</p></li>
                     <li class="elem_bot">Max Buy price: <p class="cont_elem_bot">${web3.utils.fromWei(sub[b][1].maxBuyPrice)} ETH</p></li>
                     <li class="elem_bot">N° of NFTs bought: <p class="cont_elem_bot">${sub[b][1].tokenBought}</p></li>
                     <li class="elem_bot">OrderBook for Collection: <p class="cont_elem_bot">${maxBuyPrices}</p></li>
@@ -121,7 +117,6 @@ $(document).ready(function() {
             alert("Please switch your network to rinkeby");
         }
         const availableBalance = await contract.methods.getMyAvailableETH().call({from: account});
-        console.log(availableBalance);
         const bot = await contract.methods.withdrawAvailableETH(availableBalance).send({from: account});
         console.log(bot);
         location.reload();
@@ -135,9 +130,7 @@ $(document).ready(function() {
         }
         var amount = document.getElementById("amount_withdraw_eth").value;
         amount = amount.replace(',', '.');
-        console.log(amount);
         const availableBalance = await contract.methods.getMyAvailableETH().call({from: account});
-        console.log(availableBalance);
         const bot = await contract.methods.withdrawAvailableETH(web3.utils.toWei(amount)).send({from: account});
         console.log(bot);
         location.reload();
